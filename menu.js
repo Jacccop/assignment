@@ -34,10 +34,16 @@ async function getMenu(url, menu, name) {
 };
 
 function formatMenu(output, name) {
-    const menuArray = output.split(/(?<=Kč)|(?<=2021)/g);
-    menuArray.forEach((elem, index) => { menuArray[index] = elem.trim() });
+    let menuArray = output.split(/(?<=Kč)|(?<=2021)/g);
 
-    return `${'-'.repeat(40)}\n${name}\n${'-'.repeat(40)}\n${getExactMenu(menuArray).join('\n')}`;
+    menuArray = getExactMenu(menuArray);
+   
+    menuArray.forEach((elem, index) => {
+        menuArray[index] = menuArray[index].replace(/(\d\.)|(.*\d{1,} g)|(,.*?(?= \d))|(^.+( \d{1} ))|(ks)/g, '');
+        menuArray[index] = menuArray[index].trim();
+    });
+
+    return `${'-'.repeat(40)}\n${name}\n${'-'.repeat(40)}\n${menuArray.join('\n')}`;
 }
 
 function getExactMenu(menuArray) {
