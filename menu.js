@@ -40,6 +40,7 @@ function formatMenu(output, name) {
    
     menuArray.forEach((elem, index) => {
         menuArray[index] = menuArray[index].replace(/(\d\.)|(.*\d{1,} g)|(,.*?(?= \d))|(^.+( \d{1} ))|(ks)/g, '');
+        menuArray[index] = menuArray[index].replace(/(  (?=[A-Z]))/g, '\n');
         menuArray[index] = menuArray[index].trim();
     });
 
