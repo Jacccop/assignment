@@ -44,7 +44,7 @@ function formatMenu(output, name) {
         menuArray[index] = menuArray[index].trim();
     });
 
-    return `${'-'.repeat(40)}\n${name}\n${'-'.repeat(40)}\n${menuArray.join('\n')}`;
+    return `${'-'.repeat(40)}\n${name}\n${'-'.repeat(40)}\n${sortByPrice(menuArray).join('\n')}`;
 }
 
 function getExactMenu(menuArray) {
@@ -60,4 +60,10 @@ function getExactMenu(menuArray) {
             return menu.length > 0 ? menu : ['Menu pre tento deň nebolo nájdené'];
         }
     }
+}
+
+function sortByPrice(menuArray) {
+    return menuArray.sort((a, b) => {
+        return parseInt(a.match(/\d{1,}.Kč/g)) - parseInt(b.match(/\d{1,}.Kč/g));
+    });
 }
